@@ -78,6 +78,18 @@ describe "Authentication" do
 					end
 				end
 			end
+
+			describe "in the Microposts controller", type: :request do
+				describe "Submitting to the create action" do
+					before { post microposts_path }
+					specify { expect(response).to redirect_to(signin_path) }
+				end
+
+				describe "Submitting to the destroy action" do
+					before { delete micropost_path(create(:micropost)) }
+					specify { expect(response).to redirect_to(signin_path) }
+				end
+			end
 		end
 
 		describe "as wrong user", type: :request do
